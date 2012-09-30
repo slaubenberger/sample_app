@@ -1,0 +1,62 @@
+Rails:
+------
+rails new sample_app --skip-test-unit
+rails generate rspec:install
+
+rake db:migrate
+rake db:rollback
+rake db:migrate VERSION=0
+
+
+Git:
+----
+git init
+git add .
+git commit -m "Initial commit"
+
+git mv README.rdoc README.md
+git commit -a -m "Improve the README"
+
+git remote add origin git@github.com:slaubenberger/sample_app.git
+git push -u origin master
+
+git checkout -b dev
+
+git checkout master
+git merge dev
+
+git push
+
+git status
+
+
+PostgreSQL:
+-----------
+gem install pg -v '0.14.1' -- --with-opt-dir=/usr/lib/postgresql/9.1/include
+
+
+Stubs/Guard
+-----------
+rvm get head && rvm reload
+chmod +x $rvm_path/hooks/after_cd_bundler
+
+cd <yourApp>
+bundle install --without production --binstubs=./bundler_stubs
+
+-> Add "bundler_stubs/" to .gitignore
+
+bundle install --binstubs=./bundler_stubs
+bundle --binstubs
+
+-> Add Guard (look Gemfile)
+
+bundle install
+
+Run Guard:
+bundle exec guard init rspec
+
+Again (for all command-line gems):
+bundle install --binstubs=./bundler_stubs
+bundle --binstubs
+
+bin/guard
