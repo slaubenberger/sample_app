@@ -28,6 +28,7 @@ git merge dev
 git push
 
 git status
+git log
 
 
 PostgreSQL:
