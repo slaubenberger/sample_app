@@ -3,6 +3,8 @@ Rails:
 rails new sample_app --skip-test-unit
 rails generate rspec:install
 
+rails generate controller Users new --no-test-framework
+
 rake db:migrate
 rake db:rollback
 rake db:migrate VERSION=0

@@ -14,5 +14,12 @@
 /log/*.log
 /tmp
 
-# Stubs
+# Rails 
 bundler_stubs/
+doc/
+
+# Linux specific
+*swp
+
+# Mac specific
+.DS_Store
