@@ -4,6 +4,7 @@ rails new sample_app --skip-test-unit
 rails generate rspec:install
 
 rails generate controller Users new --no-test-framework
+rails generate integration_test user_pages
 
 rake db:migrate
 rake db:rollback

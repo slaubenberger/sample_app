@@ -1,22 +1,30 @@
-require_relative '../../app/helpers/application_helper'
+require 'spec_helper'
 
-class DummyClass
-end
+include ApplicationHelper
+
 
 describe ApplicationHelper do
 
-  base_title = "Ruby on Rails Tutorial Sample App"
+  let(:base_title)    { 'Ruby on Rails Tutorial Sample App' }
+  let(:page_title)    { 'Test' }
 
-  before(:each) do
-    @dummy_class = DummyClass.new
-    @dummy_class.extend(ApplicationHelper)
-  end
+  describe "full_title" do
+    it {full_title(page_title).should eql "#{base_title} | #{page_title}"}
 
-  describe "#full_title" do
-    it {@dummy_class.full_title("Test").should eql "#{base_title} | Test"}
+    it {full_title(nil).should eql base_title}
 
-    it {@dummy_class.full_title(nil).should eql base_title}
+    it {full_title('').should eql base_title}
 
-    it {@dummy_class.full_title('').should eql base_title}
+    it "should include the page title" do
+      full_title(page_title).should =~ /#{page_title}/
+    end
+
+    it "should include the base title" do
+      full_title(page_title).should =~ /^Ruby on Rails Tutorial Sample App/
+    end
+
+    it "should not include a bar for the home page" do
+      full_title("").should_not =~ /\|/
+    end
   end
 end 

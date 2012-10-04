@@ -1,51 +1,80 @@
 require 'spec_helper'
-require_relative '../../app/helpers/application_helper'
 
-class DummyClass
-end
+include ApplicationHelper
 
 describe "Static pages" do
 
   subject { page }
 
-  before(:all) do
-    @dummy_class = DummyClass.new
-    @dummy_class.extend(ApplicationHelper)
+  shared_examples_for "all static pages" do
+    it {should have_selector('h1',    text: heading)}
+    it {should have_selector('title', text: full_title(page_title))}
   end
 
   describe "Home page" do
     before { visit root_path }
 
-    it { should have_selector('h1',    text: 'Sample App') }
-    it { should have_selector('title', text: @dummy_class.full_title(nil)) }
+    let(:heading)    { 'Sample App' }
+    let(:page_title) { '' }
+
+    it_should_behave_like "all static pages"
     it { should_not have_selector 'title', text: '| Home' }
   end
 
   describe "Help page" do
     before { visit help_path }
 
-    it { should have_selector('h1',    text: 'Help') }
-    it { should have_selector('title', text: @dummy_class.full_title('Help')) }
+    let(:heading)    { 'Help' }
+    let(:page_title) { 'Help' }
+
+    it_should_behave_like "all static pages"
   end
 
   describe "About page" do
     before { visit about_path }
 
-    it { should have_selector('h1',    text: 'About') }
-    it { should have_selector('title', text: @dummy_class.full_title('About Us')) }
+    let(:heading)    { 'About' }
+    let(:page_title) { 'About' }
+
+    it_should_behave_like "all static pages"
   end
 
   describe "Contact page" do
     before { visit contact_path }
 
-    it { should have_selector('h1',    text: 'Contact') }
-    it { should have_selector('title', text: @dummy_class.full_title('Contact')) }
+    let(:heading)    { 'Contact' }
+    let(:page_title) { 'Contact' }
+
+    it_should_behave_like "all static pages"
   end
 
   describe "Links page" do
     before { visit links_path }
 
-    it { should have_selector('h1',    text: 'Links') }
-    it { should have_selector('title', text: @dummy_class.full_title('Links')) }
+    let(:heading)    { 'Links' }
+    let(:page_title) { 'Links' }
+
+    it_should_behave_like "all static pages"
+  end
+  
+  it "should have the right links on the layout" do
+    visit root_path
+    click_link "About"
+    page.should have_selector 'title', text: full_title('About Us')
+
+    click_link "Help"
+    page.should have_selector 'title', text: full_title('Help')
+
+    click_link "Links"
+    page.should have_selector 'title', text: full_title('Links')
+
+    click_link "Contact"
+    page.should have_selector 'title', text: full_title('Contact')
+#     
+#     click_link "Home"
+#     click_link "Sign up now!"
+#     page.should # fill in
+#     click_link "sample app"
+#    page.should # fill in
   end
 end
