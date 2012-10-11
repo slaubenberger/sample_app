@@ -2,15 +2,18 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 3.2.8'
 gem 'bootstrap-sass', '~> 2.1.0.0'
+gem 'bcrypt-ruby', '~> 3.0.1'
 
 group :development do
   gem 'mysql2', '~> 0.3.11'
+  gem 'rb-readline', '~> 0.4.2'
   #gem 'pg', '~> 0.14.1'
 end
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.11.0'
-  gem 'guard-rspec', '2.0.0'
+  gem 'guard-rspec', '~> 2.0.0'
+  gem 'annotate', '~> 2.5.0'
 end
 
 group :test do

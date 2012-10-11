@@ -1,18 +1,84 @@
+Linux (Kubuntu 12.04)
+*********************
+
+Prepare:
+--------
+sudo apt-get install curl git-core patch build-essential bison zlib1g-dev libssl-dev libxml2-dev libxml2-dev sqlite3 libsqlite3-dev autotools-dev libxslt1-dev libyaml-0-2 autoconf automake libreadline6-dev libyaml-dev libtool
+
+
+RVM:
+----
+curl -L https://get.rvm.io | bash -s stable --ruby
+source ~/.rvm/scripts/rvm
+
+rvm -v
+rvm list known
+
+rvm install 1.9.3
+
+
 Rails:
 ------
+gem update
+gem install rails --version '~> 3.2.8'
+
 rails new sample_app --skip-test-unit
+".rvmrc" erstellen
 rails generate rspec:install
 
 rails generate controller Users new --no-test-framework
 rails generate integration_test user_pages
+rails generate model User name:string email:string
+rails generate migration add_index_to_users_email
+rails generate migration add_password_digest_to_users password_digest:string
 
-rake db:migrate
-rake db:rollback
-rake db:migrate VERSION=0
+bin/rake db:migrate
+bin/rake db:rollback
+bin/rake db:migrate VERSION=0
+bin/rake db:test:prepare
+
+
+Stubs/Guard:
+------------
+rvm get head && rvm reload
+chmod +x $rvm_path/hooks/after_cd_bundler
+
+cd <yourApp>
+bundle install --without production --binstubs=./bundler_stubs
+
+-> Add "bundler_stubs/" to .gitignore
+
+bundle install --binstubs=./bundler_stubs
+bundle --binstubs
+
+-> Add Guard (see Gemfile)
+
+bundle install
+
+Run Guard:
+bundle exec guard init rspec
+
+Again (for all command-line gems):
+bundle install --binstubs=./bundler_stubs
+bundle --binstubs
+
+bin/guard
+
+
+Annotations:
+------------
+-> Add Annotations (see Gemfile)
+
+bundle install --binstubs=./bundler_stubs
+bundle --binstubs
+
+bin/annotate --position before
 
 
 Git:
 ----
+sudo apt-get install git
+
 git init
 git add .
 git commit -m "Initial commit"
@@ -34,33 +100,30 @@ git status
 git log
 
 
-PostgreSQL:
------------
+SQLite3:
+--------
+sudo apt-get install sqlite3 libsqlite3-dev
+
+Add "gem 'sqlite3', '~> 1.3.6'" to Gemfile
+
+
+PostgreSQL 9.1:
+---------------
+sudo apt-get install postgresql-9.1 postgresql-client-9.1 postgresql-contrib-9.1 postgresql-server-dev-9.1
+
 gem install pg -v '0.14.1' -- --with-opt-dir=/usr/lib/postgresql/9.1/include
 
+=> Add to Gemfile
 
-Stubs/Guard
------------
-rvm get head && rvm reload
-chmod +x $rvm_path/hooks/after_cd_bundler
 
-cd <yourApp>
-bundle install --without production --binstubs=./bundler_stubs
+OpenSSL:
+--------
+rvm pkg install openssl
+rvm reinstall 1.9.3 --with-openssl-dir=~/.rvm/usr
 
--> Add "bundler_stubs/" to .gitignore
 
-bundle install --binstubs=./bundler_stubs
-bundle --binstubs
-
--> Add Guard (look Gemfile)
-
+Readline:
+---------
+Add "gem 'rb-readline', '~> 0.4.2'" to Gemfile
 bundle install
 
-Run Guard:
-bundle exec guard init rspec
-
-Again (for all command-line gems):
-bundle install --binstubs=./bundler_stubs
-bundle --binstubs
-
-bin/guard
