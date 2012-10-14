@@ -31,11 +31,20 @@ rails generate integration_test user_pages
 rails generate model User name:string email:string
 rails generate migration add_index_to_users_email
 rails generate migration add_password_digest_to_users password_digest:string
+rails generate migration add_url_to_users url:string
+
+rails console test
+rails console --sandbox
+rails server --environment production
 
 bin/rake db:migrate
 bin/rake db:rollback
 bin/rake db:migrate VERSION=0
 bin/rake db:test:prepare
+bin/rake db:migrate RAILS_ENV=production
+bin/rake db:reset
+
+bin/rake assets:precompile
 
 
 Stubs/Guard:
@@ -63,6 +72,16 @@ bundle install --binstubs=./bundler_stubs
 bundle --binstubs
 
 bin/guard
+
+Undo the remembered options:
+----------------------------
+bundle install --without "" 
+
+
+RSpec:
+------
+bin/rspec spec/
+bin/rspec spec/requests/user_pages_spec.rb -e "signup page"
 
 
 Annotations:
@@ -114,6 +133,11 @@ sudo apt-get install postgresql-9.1 postgresql-client-9.1 postgresql-contrib-9.1
 gem install pg -v '0.14.1' -- --with-opt-dir=/usr/lib/postgresql/9.1/include
 
 => Add to Gemfile
+
+sudo su - postgres
+psql
+CREATE DATABASE sample_app_prod;
+\q
 
 
 OpenSSL:

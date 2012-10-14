@@ -1,0 +1,9 @@
+1) Wie funktionieren die Tests genau? Siehe FIXME in user_spec
+
+2) Produktions-Deployment funktioniert lokal nicht richtig, Precompile oä. geht nicht richtig:
+
+bin/rake db:migrate RAILS_ENV=production
+bin/rake assets:precompile
+rails server --environment production
+
+3) i18n

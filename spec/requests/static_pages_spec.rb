@@ -8,7 +8,8 @@ describe "Static pages" do
 
   shared_examples_for "all static pages" do
     it {should have_selector('h1',    text: heading)}
-    it {should have_selector('title', text: full_title(page_title))}
+
+    it {should have_selector('title', text: 		full_title(page_title))}
   end
 
   describe "Home page" do
@@ -33,10 +34,20 @@ describe "Static pages" do
   describe "About page" do
     before { visit about_path }
 
-    let(:heading)    { 'About' }
+    let(:heading)    { 'About Us' }
     let(:page_title) { 'About' }
 
     it_should_behave_like "all static pages"
+    
+    # FIXME: what is going on here? Why does this test pass without passing :-o ?
+    #puts "MUUUUH"
+
+    #page.should have_selector('h1') do |text|
+    it { have_selector('h1') do |text|
+      #puts "TEXT:" + text
+      text.should =~ /\AAbout\z/
+    end}
+
   end
 
   describe "Contact page" do
@@ -59,7 +70,10 @@ describe "Static pages" do
   
   it "should have the right links on the layout" do
     visit root_path
+    
+    # FIXME: why is here the page needed - i don't get it...
     click_link "About"
+    #it {should have_selector('title', text: full_title('About Us'))}
     page.should have_selector 'title', text: full_title('About Us')
 
     click_link "Help"

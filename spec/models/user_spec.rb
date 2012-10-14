@@ -1,3 +1,5 @@
+#Encoding: UTF-8
+
 # == Schema Information
 #
 # Table name: users
@@ -8,6 +10,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  password_digest :string(255)
+#  url             :string(255)
 #
 
 require 'spec_helper'
@@ -15,7 +18,7 @@ require 'spec_helper'
 describe User do
 
   before do
-    @user = User.new(name: "Example User", email: "user@example.com", password: "foobar", password_confirmation: "foobar")
+    @user = User.new(name: "Example User", email: "user@example.com", password: "foobar", password_confirmation: "foobar", url: nil)
   end
 
   subject { @user }
@@ -118,6 +121,30 @@ describe User do
 
 	it { should_not == user_for_invalid_password }
 	specify { user_for_invalid_password.should be_false }
+      end
+    end
+  end
+  
+  context "url" do
+    it { should respond_to(:url) }
+    
+    describe "when url format is invalid" do
+      it "should be invalid" do
+	url = %w[user@foo,com ftp://laubenberger.net http://www.laubenberger.network ]
+	url.each do |invalid_url|
+	  @user.url = invalid_url
+	  @user.should_not be_valid
+	end
+      end
+    end
+    
+    describe "when url format is valid" do
+      it "should be valid" do
+	url = %w[http://www.laubenberger.net http://www.sss.tw http://strugglingwithruby.blogspot.ch/2009/05/regular-expressions-in-ruby.html]
+	url.each do |valid_url|
+	  @user.url = valid_url
+	  @user.should be_valid
+	end
       end
     end
   end

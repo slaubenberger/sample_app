@@ -19,6 +19,7 @@ end
 group :test do
   gem 'sqlite3', '~> 1.3.6'
   gem 'capybara', '~> 1.1.2'
+  gem 'factory_girl_rails', '~> 4.1.0'
   
   # Guard - Linux
   gem 'rb-inotify', '~> 0.8.8'
@@ -37,6 +38,7 @@ end
 group :production do
   #gem 'mysql2', '~> 0.3.11'
   gem 'pg', '~> 0.14.1'
+  gem "activerecord-postgresql-adapter", "~> 0.0.1"
 end
 
 

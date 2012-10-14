@@ -1,0 +1,17 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+      <p><%= @user.email%></p><br/>
+      <% if @user.url.nil? %>
+	<p>no URL entered</p><br/>
+      <% else %>
+	<a href="<%= @user.url%>" target="blank"><%= @user.url%></a>
+      <% end %>
+    </section>
+  </aside>
+</div>
