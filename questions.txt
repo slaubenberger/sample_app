@@ -7,3 +7,7 @@ bin/rake assets:precompile
 rails server --environment production
 
 3) i18n
+
+4) Models immer im schema.rb?
+
+5) Validates nötig? Gibt es Email etc.-Felder?
