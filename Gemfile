@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'rails', '~> 3.2.8'
 gem 'bootstrap-sass', '~> 2.1.0.0'
 gem 'bcrypt-ruby', '~> 3.0.1'
+gem 'will_paginate', '~> 3.0.3'
+gem 'bootstrap-will_paginate', '~> 0.0.9'
 
 group :development do
   gem 'mysql2', '~> 0.3.11'
@@ -14,6 +16,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.11.0'
   gem 'guard-rspec', '~> 2.0.0'
   gem 'annotate', '~> 2.5.0'
+  gem 'faker', '~> 1.1.2'
 end
 
 group :test do

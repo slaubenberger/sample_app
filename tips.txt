@@ -44,6 +44,8 @@ bin/rake db:test:prepare
 bin/rake db:migrate RAILS_ENV=production
 bin/rake db:reset
 
+bin/rake db:populate
+
 bin/rake assets:precompile
 
 
@@ -109,15 +111,18 @@ git remote add origin git@github.com:slaubenberger/sample_app.git
 git push -u origin master
 
 git checkout -b dev
+git push origin dev
 
 git checkout master
-git merge dev
+git merge —no-ff dev
 
 git push
 
 git status
 git log
 
+git pull origin master
+git pull origin dev
 
 SQLite3:
 --------
